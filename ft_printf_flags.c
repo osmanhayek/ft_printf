@@ -93,13 +93,23 @@ int	ft_putdec(unsigned int nbr)
 
 int ft_putpointer(void *ptr)
 {
-	unsigned long	ret;
-	int				res;
-
-	ret = (unsigned long)ptr;
-	res = 0;
-	if (ret > 15)
-		res += ft_putpointer((void *)(ret / 16));
-	res += ft_putchari("0123456789abcdef"[ret % 16]);
-	return (res);
+	static char	buffer[32];
+	int	x;
+	unsigned long	temp;
+	int	i;
+	
+	temp = (unsigned long)ptr;
+	if (!temp)
+		return (write(1, "(nil)", 5));
+	x = 0;
+	i = 0;
+	while (temp)
+	{
+		buffer[i++] = "0123456789abcdef"[temp % 16];
+		temp = temp / 16;
+	}
+	x += write(1, "0x", 2);
+	while (i--)
+		x += write(1, &buffer[i], 1);
+	return (x);
 }

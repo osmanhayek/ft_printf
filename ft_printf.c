@@ -25,10 +25,7 @@ int	ft_format(char c, va_list list)
 	else if (c == 's')
 		return (ft_putstri(va_arg(list, char *)));
 	else if (c == 'p')
-	{
-		ft_putstri("0x");
-		return (ft_putpointer(va_arg(list, void *)) + 2);
-	}
+		return (ft_putpointer(va_arg(list, void *)));
 	else if (c == 'd' || c == 'i')
 		return (ft_putnbri(va_arg(list, int)));
 	else if (c == 'u')
